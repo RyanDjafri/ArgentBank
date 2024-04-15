@@ -12,6 +12,7 @@ const Router = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Auth />} />
           <Route path="/user" element={<Transactions />} />
+          {/* route error */}
         </Routes>
       </BrowserRouter>
     </div>
