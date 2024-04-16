@@ -7,8 +7,31 @@ const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
-  // reducer call
- 
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    axios({
+      method: "post",
+      url: `${process.env.REACT_APP_URL}api/v1/user/login`,
+      withCredentials: true,
+      data: {
+        email,
+        password,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        const tokenKey = localStorage.setItem("jwt", res.data.body.token);
+        if (res.data.error) {
+          console.log(res.data.error);
+        } else {
+          // window.location = "/user";
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div>
@@ -17,22 +40,37 @@ const Auth = () => {
         <section className="sign-in-content">
           <i className="fa fa-user-circle sign-in-icon"></i>
           <h1>Sign In</h1>
-          <form>
+          <form onSubmit={handleLogin}>
             <div className="input-wrapper">
               <label htmlFor="email">Email</label>
-              <input type="text" id="email" />
+              <input
+                type="text"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </div>
             <div className="input-wrapper">
               <label htmlFor="password">Password</label>
-              <input type="password" id="password" />
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
             <div className="input-remember">
-              <input type="checkbox" id="remember-me" />
+              <input
+                type="checkbox"
+                id="remember-me"
+                checked={remember}
+                onChange={(e) => setRemember(e.target.checked)}
+              />
               <label htmlFor="remember-me">Remember me</label>
             </div>
-            <a href="./user" className="sign-in-button">
+            <button type="submit" className="sign-in-button">
               Sign In
-            </a>
+            </button>
           </form>
         </section>
       </main>
