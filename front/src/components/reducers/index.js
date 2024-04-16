@@ -1,8 +1,18 @@
 import { combineReducers } from "redux";
-import logReducer from "./log.reducer";
-import profilReducer from "./profil.reducer";
+import { configureStore, Tuple } from "@reduxjs/toolkit";
+import { logger } from "redux-logger";
+import { thunk } from "redux-thunk";
+import { userReducer } from "./log.reducer";
+import { profileReducer } from "./profil.reducer";
 
-export default combineReducers({
-  logReducer,
-  profilReducer,
+const rootReducer = combineReducers({
+  log: userReducer,
+  profile: profileReducer,
 });
+
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: () => new Tuple(thunk, logger),
+});
+
+export default store;

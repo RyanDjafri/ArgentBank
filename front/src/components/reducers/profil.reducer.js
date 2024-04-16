@@ -1,4 +1,4 @@
-import { USER_PROFILE, UPDATE_PROFILE } from "../actions/log.actions";
+import { USER_PROFILE, UPDATE_PROFILE } from "../actions/profil.actions";
 
 const initialState = {};
 

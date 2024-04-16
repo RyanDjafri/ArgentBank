@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import Router from "./components/Router";
-import { UidContext } from "./components/AppContext";
 import axios from "axios";
+import { getUserProfile } from "./components/actions/profil.actions";
 import "./assets/style/App.css";
 
 const App = () => {
-  const [uid, setUid] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
         const token = localStorage.getItem("jwt");
         if (!token) throw new Error("No token found");
+        console.log(token);
 
         const res = await axios.post(
           `${process.env.REACT_APP_URL}profile`,
@@ -22,21 +24,18 @@ const App = () => {
             },
           }
         );
-
-        setUid(res.data);
+        dispatch(getUserProfile(res.data));
       } catch (error) {
         console.error("Error fetching user profile:", error);
       }
     };
     fetchUserProfile();
-  }, []);
+  }, [dispatch]);
 
   return (
-    <UidContext.Provider value={uid}>
-      <div className="App">
-        <Router />
-      </div>
-    </UidContext.Provider>
+    <div className="App">
+      <Router />
+    </div>
   );
 };
 
