@@ -1,24 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import TransaCard from "../components/features/TransaCard";
+import {
+  getUserProfile,
+  updateProfile,
+} from "../components/actions/profil.actions";
 
 const Transactions = () => {
+  const dispatch = useDispatch();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [editMode, setEditMode] = useState(false);
+  const userInfo = useSelector((state) => state.profile.userInfo);
+
+  useEffect(() => {
+    dispatch(getUserProfile());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (userInfo) {
+      setFirstName(userInfo.firstName);
+      setLastName(userInfo.lastName);
+    }
+  }, [userInfo]);
 
   const handleEditProfile = () => {
     setEditMode(true);
   };
 
   const handleSave = () => {
+    dispatch(updateProfile({ firstName, lastName }));
     setEditMode(false);
   };
 
   const handleCancel = () => {
-    setFirstName("");
-    setLastName("");
+    setFirstName(userInfo ? userInfo.firstName : "");
+    setLastName(userInfo ? userInfo.lastName : "");
     setEditMode(false);
   };
 
@@ -30,6 +49,11 @@ const Transactions = () => {
           <h1>
             Welcome back
             <br />
+            {userInfo && (
+              <span>
+                {userInfo.firstName} {userInfo.lastName}
+              </span>
+            )}
           </h1>
           {!editMode && (
             <button className="edit-button" onClick={handleEditProfile}>

@@ -21,10 +21,10 @@ const Auth = () => {
     })
       .then((res) => {
         console.log(res);
-        const tokenKey = localStorage.setItem("jwt", res.data.body.token);
         if (res.data.error) {
           console.log(res.data.error);
         } else {
+          localStorage.setItem("jwt", res.data.body.token);
           window.location = "/user";
         }
       })

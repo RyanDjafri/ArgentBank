@@ -8,9 +8,8 @@ export const getUserProfile = () => {
     try {
       const token = localStorage.getItem("jwt");
       if (!token) throw new Error("No token found");
-
       const res = await axios.post(
-        `${process.env.REACT_APP_URL}profile`,
+        `http://localhost:3001/api/v1/user/profile`,
         null,
         {
           headers: {
@@ -29,7 +28,7 @@ export const getUserProfile = () => {
 export const updateProfile = (data) => {
   return (dispatch) => {
     axios
-      .put(`${process.env.REACT_APP_URL}profile`, data)
+      .put(`http://localhost:3001/api/v1/user/profile`, data)
       .then((res) => {
         dispatch({ type: UPDATE_PROFILE, payload: res.data });
       })
