@@ -8,6 +8,7 @@ export const getUserProfile = () => {
     try {
       const token = localStorage.getItem("jwt");
       if (!token) throw new Error("No token found");
+
       const res = await axios.post(
         `${process.env.REACT_APP_URL}profile`,
         null,
@@ -17,6 +18,7 @@ export const getUserProfile = () => {
           },
         }
       );
+
       dispatch({ type: USER_PROFILE, payload: res.data });
     } catch (error) {
       console.error("Error fetching user profile:", error);

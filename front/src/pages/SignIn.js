@@ -25,7 +25,7 @@ const Auth = () => {
         if (res.data.error) {
           console.log(res.data.error);
         } else {
-          // window.location = "/user";
+          window.location = "/user";
         }
       })
       .catch((err) => {
