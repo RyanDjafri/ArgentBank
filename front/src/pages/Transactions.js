@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -6,8 +6,8 @@ import TransaCard from "../components/features/TransaCard";
 import {
   getUserProfile,
   updateProfile,
-} from "../components/actions/profil.actions";
-
+} from "../components/actions/profil.actions"
+;
 const Transactions = () => {
   const dispatch = useDispatch();
   const [firstName, setFirstName] = useState("");
@@ -21,12 +21,16 @@ const Transactions = () => {
 
   useEffect(() => {
     if (userInfo) {
-      setFirstName(userInfo.firstName);
-      setLastName(userInfo.lastName);
+      setFirstName(userInfo.firstName || "");
+      setLastName(userInfo.lastName || "");
     }
   }, [userInfo]);
 
   const handleEditProfile = () => {
+    if (userInfo) {
+      setFirstName(userInfo.firstName || "");
+      setLastName(userInfo.lastName || "");
+    }
     setEditMode(true);
   };
 
@@ -36,8 +40,8 @@ const Transactions = () => {
   };
 
   const handleCancel = () => {
-    setFirstName(userInfo ? userInfo.firstName : "");
-    setLastName(userInfo ? userInfo.lastName : "");
+    setFirstName(userInfo ? userInfo.firstName || "" : "");
+    setLastName(userInfo ? userInfo.lastName || "" : "");
     setEditMode(false);
   };
 
@@ -49,7 +53,7 @@ const Transactions = () => {
           <h1>
             Welcome back
             <br />
-            {userInfo && (
+            {!editMode && userInfo && (
               <span>
                 {userInfo.firstName} {userInfo.lastName}
               </span>
@@ -61,20 +65,24 @@ const Transactions = () => {
             </button>
           )}
           <div className={editMode ? "inputs" : "inputs hidden"}>
-            <input
-              type="text"
-              placeholder="First Name"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              className="input-field"
-            />
-            <input
-              type="text"
-              placeholder="Last Name"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              className="input-field"
-            />
+            {editMode ? (
+              <>
+                <input
+                  type="text"
+                  placeholder="First Name"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  className="input-field"
+                />
+                <input
+                  type="text"
+                  placeholder="Last Name"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  className="input-field"
+                />
+              </>
+            ) : null}
           </div>
           <div className={editMode ? "btns" : "btns hidden"}>
             <button onClick={handleSave} className="save-btn">

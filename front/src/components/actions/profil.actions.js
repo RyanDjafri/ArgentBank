@@ -25,15 +25,24 @@ export const getUserProfile = () => {
   };
 };
 
-export const updateProfile = (data) => {
-  return (dispatch) => {
-    axios
-      .put(`http://localhost:3001/api/v1/user/profile`, data)
-      .then((res) => {
-        dispatch({ type: UPDATE_PROFILE, payload: res.data });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+export const updateProfile = () => {
+  return async (dispatch) => {
+    try {
+      const token = localStorage.getItem("jwt");
+      if (!token) throw new Error("No token found");
+      const res = await axios.put(
+        "http://localhost:3001/api/v1/user/profile",
+        null,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      dispatch({ type: UPDATE_PROFILE, payload: res.data });
+    } catch (error) {
+      console.error("Error editing profile:", error);
+    }
   };
 };
