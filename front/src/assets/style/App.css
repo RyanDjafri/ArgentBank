@@ -262,8 +262,38 @@ body {
 .header {
   color: #fff;
   margin-bottom: 2rem;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap:1rem;
 }
 
+.inputs {
+display:flex;
+gap:2rem;
+padding: 5px;
+
+}
+input {
+  padding: 5px;
+  font-size: 1.2rem;
+}
+.btns {
+  display:flex;
+  gap:2rem;
+}
+.btns button {
+  padding: 5px;
+  font-size: 1.2rem;
+  color:blue;
+  border:1px blue;
+  cursor: pointer;
+}
+
+.hidden {
+  display:none;
+}
 .transaction-button {
   display: block;
   width: 100%;

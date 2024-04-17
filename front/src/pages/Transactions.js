@@ -1,9 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import TransaCard from "../components/features/TransaCard";
 
 const Transactions = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [editMode, setEditMode] = useState(false);
+
+  const handleEditProfile = () => {
+    setEditMode(true);
+  };
+
+  const handleSave = () => {
+    setEditMode(false);
+  };
+
+  const handleCancel = () => {
+    setFirstName("");
+    setLastName("");
+    setEditMode(false);
+  };
+
   return (
     <div>
       <Navbar />
@@ -13,7 +31,35 @@ const Transactions = () => {
             Welcome back
             <br />
           </h1>
-          <button className="edit-button">Edit Name</button>
+          {!editMode && (
+            <button className="edit-button" onClick={handleEditProfile}>
+              Edit Name
+            </button>
+          )}
+          <div className={editMode ? "inputs" : "inputs hidden"}>
+            <input
+              type="text"
+              placeholder="First Name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              className="input-field"
+            />
+            <input
+              type="text"
+              placeholder="Last Name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              className="input-field"
+            />
+          </div>
+          <div className={editMode ? "btns" : "btns hidden"}>
+            <button onClick={handleSave} className="save-btn">
+              Save
+            </button>
+            <button onClick={handleCancel} className="cancel-btn">
+              Cancel
+            </button>
+          </div>
         </div>
         <h2 className="sr-only">Accounts</h2>
         <TransaCard

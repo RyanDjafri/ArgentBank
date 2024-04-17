@@ -13,7 +13,7 @@ const App = () => {
     const token = localStorage.getItem("jwt");
     if (token) {
       setUid(token);
-      dispatch(getUserProfile());
+      dispatch(getUserProfile(uid));
     }
   }, [dispatch]);
 
