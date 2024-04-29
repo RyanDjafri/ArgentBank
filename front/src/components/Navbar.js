@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import bankLogo from "../assets/img/argentBankLogo.png";
+import { UidContext } from "../components/AppContext";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
+  const uid = useContext(UidContext);
+  const userInfo = useSelector((state) => state.profile.userInfo);
+
+  const logout = () => {
+    localStorage.removeItem("jwt");
+    window.location.href = "/";
+  };
+
   return (
     <div>
       <nav className="main-nav">
@@ -14,10 +24,27 @@ const Navbar = () => {
           <h1 className="sr-only">Argent Bank</h1>
         </a>
         <div>
-          <a className="main-nav-item" href="./login">
-            <i className="fa fa-user-circle"></i>
-            Sign In
-          </a>
+          {uid ? (
+            <>
+              <div>
+                <a className="main-nav-item" href="/user">
+                  <i className="fa fa-user-circle"></i>
+                  {userInfo.firstName}
+                </a>
+                <a className="main-nav-item" href="./" onClick={logout}>
+                  <i className="fa fa-sign-out"></i>
+                  Sign Out
+                </a>
+              </div>
+            </>
+          ) : (
+            <>
+              <a className="main-nav-item" href="./login">
+                <i className="fa fa-user-circle"></i>
+                Sign In
+              </a>
+            </>
+          )}
         </div>
       </nav>
     </div>

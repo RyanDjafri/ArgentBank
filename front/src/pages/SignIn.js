@@ -12,7 +12,7 @@ const Auth = () => {
     e.preventDefault();
     axios({
       method: "post",
-      url: `${process.env.REACT_APP_URL}api/v1/user/login`,
+      url: `http://localhost:3001/api/v1/user/login`,
       withCredentials: true,
       data: {
         email,

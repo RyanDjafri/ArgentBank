@@ -6,15 +6,13 @@ import TransaCard from "../components/features/TransaCard";
 import {
   getUserProfile,
   updateProfile,
-} from "../components/actions/profil.actions"
-;
+} from "../components/actions/profil.actions";
 const Transactions = () => {
   const dispatch = useDispatch();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [editMode, setEditMode] = useState(false);
   const userInfo = useSelector((state) => state.profile.userInfo);
-
   useEffect(() => {
     dispatch(getUserProfile());
   }, [dispatch]);

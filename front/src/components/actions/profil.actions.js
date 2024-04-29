@@ -25,14 +25,17 @@ export const getUserProfile = () => {
   };
 };
 
-export const updateProfile = () => {
+export const updateProfile = (data) => {
   return async (dispatch) => {
     try {
       const token = localStorage.getItem("jwt");
       if (!token) throw new Error("No token found");
       const res = await axios.put(
         "http://localhost:3001/api/v1/user/profile",
-        null,
+        {
+          firstName: data.firstName,
+          lastName: data.lastName,
+        },
         {
           headers: {
             Authorization: `Bearer ${token}`,
