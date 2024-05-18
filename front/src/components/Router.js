@@ -12,7 +12,7 @@ const Router = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Auth />} />
           <Route path="/user" element={<Transactions />} />
-          {/* route error */}
+          {/* protected route */}
         </Routes>
       </BrowserRouter>
     </div>
