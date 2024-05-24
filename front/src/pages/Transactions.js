@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -7,15 +7,14 @@ import {
   getUserProfile,
   updateProfile,
 } from "../components/actions/profil.actions";
+import { UidContext } from "../components/AppContext";
 const Transactions = () => {
   const dispatch = useDispatch();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [editMode, setEditMode] = useState(false);
+  const uid = useContext(UidContext);
   const userInfo = useSelector((state) => state.profile.userInfo);
-  useEffect(() => {
-    dispatch(getUserProfile());
-  }, [dispatch]);
 
   useEffect(() => {
     if (userInfo) {
