@@ -12,8 +12,11 @@ const App = () => {
   useEffect(() => {
     const token = localStorage.getItem("jwt");
     if (token) {
+      console.log("Token found:", token);
       setUid(token);
       dispatch(getUserProfile());
+    } else {
+      console.log("No token found");
     }
   }, [dispatch]);
 
