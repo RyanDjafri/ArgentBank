@@ -75,6 +75,7 @@ paths:
       description: API for fetching a user profile
       parameters:
         - in: header
+          type: string
           name: Authorization
           description: Attach Bearer JWT token
           required: true
@@ -102,6 +103,7 @@ paths:
       description: API for updating a user profile
       parameters:
         - in: header
+          type: string
           name: Authorization
           description: Attach Bearer JWT token
           required: true
@@ -116,6 +118,110 @@ paths:
       responses:
         "200":
           description: Successfully updated user profile data
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "400":
+          description: Invalid Fields
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /transactions:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Get All Transactions
+      description: API for fetching all transactions
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Successfully retrieved transactions
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Transaction"
+        "400":
+          description: Invalid Fields
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /transactions/{id}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Get Transaction by ID
+      description: API for fetching a transaction by ID
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: path
+          name: id
+          type: string
+          description: Transaction ID
+          required: true
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Successfully retrieved transaction
+          schema:
+            $ref: "#/definitions/Transaction"
+        "400":
+          description: Invalid Fields
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Edit Transaction by ID
+      description: API for editing a transaction by ID
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: path
+          name: id
+          type: string
+          description: Transaction ID
+          required: true
+        - in: body
+          name: body
+          description: Update transaction category and notes
+          required: true
+          schema:
+            $ref: "#/definitions/TransactionUpdate"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Successfully updated transaction
           schema:
             $ref: "#/definitions/ApiResponse"
         "400":
@@ -206,3 +312,31 @@ definitions:
       message:
         type: string
         description: Error message
+  Transaction:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Transaction ID
+      amount:
+        type: number
+        description: Transaction amount
+      category:
+        type: string
+        description: Transaction category
+      date:
+        type: string
+        format: date-time
+        description: Transaction date
+      notes:
+        type: string
+        description: Transaction notes
+  TransactionUpdate:
+    type: object
+    properties:
+      category:
+        type: string
+        description: Transaction category
+      notes:
+        type: string
+        description: Transaction notes
