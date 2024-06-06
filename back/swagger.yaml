@@ -159,6 +159,40 @@ paths:
           description: Internal Server Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Create Transaction
+      description: API for creating a new transaction
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: body
+          name: body
+          description: Transaction Payload
+          required: true
+          schema:
+            $ref: "#/definitions/Transaction"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Successfully created transaction
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "400":
+          description: Invalid Fields
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   /transactions/{id}:
     get:
       security:
@@ -222,6 +256,39 @@ paths:
       responses:
         "200":
           description: Successfully updated transaction
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "400":
+          description: Invalid Fields
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Delete Transaction by ID
+      description: API for deleting a transaction by ID
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: path
+          name: id
+          type: string
+          description: Transaction ID
+          required: true
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Successfully deleted transaction
           schema:
             $ref: "#/definitions/ApiResponse"
         "400":
