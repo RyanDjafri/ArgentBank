@@ -1,13 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import TransaCard from "../components/features/TransaCard";
-import {
-  getUserProfile,
-  updateProfile,
-} from "../components/actions/profil.actions";
+import { updateProfile } from "../components/actions/profil.actions";
 import { UidContext } from "../components/AppContext";
 
 const Transactions = () => {
