@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import bankLogo from "../assets/img/argentBankLogo.png";
-import { UidContext } from "../components/AppContext";
+import { setUidToken } from "./uidSlice";
 import { useSelector } from "react-redux";
 
 const Navbar = () => {
-  const uid = useContext(UidContext);
+  const uidToken = useSelector((state) => state.uid.token);
   const userInfo = useSelector((state) => state.profile.userInfo);
 
   const logout = () => {
@@ -24,7 +24,7 @@ const Navbar = () => {
           <h1 className="sr-only">Argent Bank</h1>
         </a>
         <div>
-          {uid ? (
+          {uidToken ? (
             <>
               <div>
                 <a className="main-nav-item" href="/user">

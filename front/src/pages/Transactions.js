@@ -4,14 +4,14 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import TransaCard from "../components/features/TransaCard";
 import { updateProfile } from "../components/actions/profil.actions";
-import { UidContext } from "../components/AppContext";
+import { setUidToken } from "../components/uidSlice";
 
 const Transactions = () => {
   const dispatch = useDispatch();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [editMode, setEditMode] = useState(false);
-  const uid = useContext(UidContext);
+  const uidToken = useSelector((state) => state.uid.token);
   const userInfo = useSelector((state) => state.profile.userInfo);
   useEffect(() => {
     if (userInfo) {
@@ -42,7 +42,7 @@ const Transactions = () => {
   return (
     <div>
       <Navbar />
-      {uid ? (
+      {uidToken ? (
         <>
           <main className="main bg-dark">
             <div className="header">
