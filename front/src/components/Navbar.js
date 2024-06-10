@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import bankLogo from "../assets/img/argentBankLogo.png";
-import { setUidToken } from "./uidSlice";
 import { useSelector } from "react-redux";
 
 const Navbar = () => {

@@ -4,7 +4,6 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import TransaCard from "../components/features/TransaCard";
 import { updateProfile } from "../components/actions/profil.actions";
-import { setUidToken } from "../components/uidSlice";
 
 const Transactions = () => {
   const dispatch = useDispatch();
